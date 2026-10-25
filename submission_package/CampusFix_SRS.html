@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Software Requirements Specification (SRS) - CampusFix</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 20mm 18mm 20mm 18mm;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.6;
+      font-size: 10.5pt;
+      background: #ffffff;
+    }
+    .page {
+      page-break-after: always;
+      position: relative;
+    }
+    .page:last-child { page-break-after: avoid; }
+    .cover {
+      text-align: center;
+      padding: 35mm 0 20mm 0;
+      min-height: 240mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .cover h1 {
+      font-size: 22pt;
+      color: #2563eb;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .cover h2 {
+      font-size: 14pt;
+      color: #0f172a;
+      font-weight: 600;
+      margin-bottom: 25mm;
+    }
+    .cover-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 11pt;
+      color: #334155;
+    }
+    .cover-meta strong {
+      color: #0f172a;
+      font-size: 12pt;
+    }
+    h2.section-heading {
+      font-size: 13pt;
+      font-weight: 800;
+      color: #1e40af;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-top: 16pt;
+      margin-bottom: 6pt;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 3pt;
+    }
+    h3.sub-heading {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 10pt;
+      margin-bottom: 4pt;
+    }
+    p {
+      margin-bottom: 7pt;
+      text-align: justify;
+      color: #334155;
+    }
+    ul, ol {
+      margin-left: 18pt;
+      margin-bottom: 8pt;
+    }
+    li {
+      margin-bottom: 4pt;
+      color: #334155;
+    }
+    li strong {
+      color: #0f172a;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8pt 0 12pt 0;
+      font-size: 9pt;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+      text-align: left;
+      padding: 6pt 8pt;
+      border: 1px solid #cbd5e1;
+    }
+    td {
+      padding: 5.5pt 8pt;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+    }
+    tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    .code-box {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8pt;
+      font-family: Consolas, monospace;
+      font-size: 8pt;
+      margin-bottom: 8pt;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="page cover">
+    <div>
+      <h1>SOFTWARE REQUIREMENTS SPECIFICATION</h1>
+      <h2>For CampusFix: Campus Maintenance & Grievance Portal</h2>
+    </div>
+
+    <div>
+      <p style="text-align: center; font-size: 12pt; color: #64748b; margin-bottom: 15mm;">
+        Full Stack Application Development with ReactJS<br>
+        <strong>ICT Academy of Kerala — Capstone Internship Project</strong>
+      </p>
+    </div>
+
+    <div class="cover-meta">
+      <p>Prepared by:</p>
+      <strong>Megha K H</strong>
+      <p>Department of Computer Science & Engineering</p>
+      <p><strong>Sahrdaya College of Engineering and Technology</strong></p>
+      <p style="margin-top: 10px; color: #64748b;">Date: 25.10.2026 | Version: 1.0</p>
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS & INTRODUCTION -->
+  <div class="page">
+    <h2 class="section-heading">1. INTRODUCTION</h2>
+    
+    <h3 class="sub-heading">1.1 Purpose</h3>
+    <p>
+      This Software Requirements Specification (SRS) document provides a comprehensive description of the functional, non-functional, and architectural requirements for <strong>CampusFix</strong>. CampusFix is an institutional web portal designed for educational institutions to streamline and digitize facility maintenance, grievance reporting, and technician resolution workflows.
+    </p>
+
+    <h3 class="sub-heading">1.2 Document Conventions</h3>
+    <p>
+      This document follows standard IEEE 830-1998 guidelines for software requirement specifications. Typographical conventions include boldface for critical system terms, monospaced font for code entities, endpoints, and database models.
+    </p>
+
+    <h3 class="sub-heading">1.3 Intended Audience</h3>
+    <p>
+      This document is intended for project evaluators at the Information and Communication Technology Academy of Kerala (ICTAK), software engineering mentors, institutional administrators, and future development contributors.
+    </p>
+
+    <h3 class="sub-heading">1.4 Project Scope</h3>
+    <p>
+      CampusFix replaces manual complaint registers and fragmented WhatsApp groups in educational institutions. The system provides a centralized digital portal where authenticated students and faculty can submit maintenance tickets (categorized by department, building, and urgency), monitor progress, and upvote existing tickets. It empowers administrative facility managers to triage tickets, assign technicians, update lifecycle statuses (<em>Pending</em> → <em>In Progress</em> → <em>Resolved</em>), and log official resolution remarks.
+    </p>
+
+    <h2 class="section-heading">2. OVERALL DESCRIPTION</h2>
+
+    <h3 class="sub-heading">2.1 Product Perspective</h3>
+    <p>
+      CampusFix is an autonomous, cloud-enabled web application built on the three-tier MERN stack architecture (MongoDB, Express.js, React.js, and Node.js). It interfaces with a cloud-hosted MongoDB Atlas cluster for data persistence and enforces stateless authentication via JSON Web Tokens (JWT).
+    </p>
+
+    <h3 class="sub-heading">2.2 User Classes & Roles</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>User Role</th>
+          <th>Description & Responsibilities</th>
+          <th>Access Privileges</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Student / Faculty (Reporter)</strong></td>
+          <td>General campus members who identify infrastructure breakdowns or equipment faults.</td>
+          <td>Create tickets, view personal tickets, browse campus feed, upvote tickets, delete own pending tickets.</td>
+        </tr>
+        <tr>
+          <td><strong>Facility Admin (Maintainer)</strong></td>
+          <td>Campus maintenance staff, system administrators, or departmental facility managers.</td>
+          <td>View administrative metrics, update ticket status, append official resolution remarks, remove spam or duplicate tickets.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SYSTEM FEATURES & FUNCTIONAL REQUIREMENTS -->
+  <div class="page">
+    <h2 class="section-heading">3. SPECIFIC SYSTEM FEATURES</h2>
+
+    <h3 class="sub-heading">3.1 Feature 1: User Authentication & Role Assignment</h3>
+    <ul>
+      <li><strong>FR-1.1:</strong> The system shall allow users to register with full name, unique college email, encrypted password, and department selection.</li>
+      <li><strong>FR-1.2:</strong> Passwords must be at least 6 characters in length and must be salted and hashed using <code>bcryptjs</code> (10 salt rounds) before database persistence.</li>
+      <li><strong>FR-1.3:</strong> The system shall issue a signed JSON Web Token (JWT) with a 30-day validity upon successful credential verification.</li>
+      <li><strong>FR-1.4:</strong> The system shall assign user roles (<code>student</code> or <code>admin</code>) during registration to dictate role-based access control (RBAC).</li>
+    </ul>
+
+    <h3 class="sub-heading">3.2 Feature 2: Maintenance Ticket Management</h3>
+    <ul>
+      <li><strong>FR-2.1:</strong> Authenticated students and faculty shall submit maintenance tickets specifying title, category (<em>IT & Lab, Electrical, Plumbing, Furniture, Cleanliness, Other</em>), campus location, urgency (<em>Low, Medium, High, Urgent</em>), and description.</li>
+      <li><strong>FR-2.2:</strong> Each ticket shall automatically capture the reporter's ID, submission timestamp, default <code>Pending</code> status, and an empty upvotes array.</li>
+      <li><strong>FR-2.3:</strong> Users shall view a dedicated "My Tickets" dashboard showing only tickets authored by their authenticated account.</li>
+      <li><strong>FR-2.4:</strong> Authors may delete their own tickets provided the ticket remains in the <code>Pending</code> state.</li>
+    </ul>
+
+    <h3 class="sub-heading">3.3 Feature 3: Campus Feed, Search & Dynamic Filtering</h3>
+    <ul>
+      <li><strong>FR-3.1:</strong> The application shall display a centralized feed displaying all active campus maintenance tickets to prevent redundant reports.</li>
+      <li><strong>FR-3.2:</strong> The feed shall support live multi-parameter filtering by Category and Status.</li>
+      <li><strong>FR-3.3:</strong> The search feature shall perform real-time substring matching across ticket titles, descriptions, and campus locations.</li>
+      <li><strong>FR-3.4:</strong> Real-time summary metric cards shall dynamically display counts for Total Filtered, Pending, In Progress, and Resolved tickets.</li>
+    </ul>
+
+    <h3 class="sub-heading">3.4 Feature 4: Administrative Resolution & Facility Remarks</h3>
+    <ul>
+      <li><strong>FR-4.1:</strong> Facility Admins shall possess exclusive access to the "Manage Status" drawer on ticket cards.</li>
+      <li><strong>FR-4.2:</strong> Admins can update ticket status between <code>Pending</code>, <code>In Progress</code>, and <code>Resolved</code>.</li>
+      <li><strong>FR-4.3:</strong> Admins can append official maintenance updates and technician notes (e.g., <em>"Plumber assigned; pipeline cleared"</em>).</li>
+      <li><strong>FR-4.4:</strong> Status updates shall immediately recalculate campus metric counters across the user interface.</li>
+    </ul>
+
+    <h3 class="sub-heading">3.5 Feature 5: Peer Upvoting</h3>
+    <ul>
+      <li><strong>FR-5.1:</strong> Any authenticated campus member can upvote a ticket to indicate shared urgency.</li>
+      <li><strong>FR-5.2:</strong> The upvote action is atomic: clicking once increments the counter; clicking again retracts the upvote.</li>
+    </ul>
+  </div>
+
+  <!-- EXTERNAL INTERFACE & NON-FUNCTIONAL REQUIREMENTS -->
+  <div class="page">
+    <h2 class="section-heading">4. EXTERNAL INTERFACE REQUIREMENTS</h2>
+
+    <h3 class="sub-heading">4.1 User Interfaces</h3>
+    <p>
+      The client interface is implemented in React 18 utilizing modern CSS flexbox and grid layouts. The interface strictly adheres to Section 7.3 of the ICTAK guidelines, ensuring every data-driven view provides four distinct feedback states:
+    </p>
+    <ul>
+      <li><strong>Loading State:</strong> Visual loader spinners during asynchronous fetch calls.</li>
+      <li><strong>Success State:</strong> Formatted cards with color-coded status badges (Amber for <em>Pending</em>, Blue for <em>In Progress</em>, Green for <em>Resolved</em>).</li>
+      <li><strong>Empty State:</strong> Intuitive placeholder graphics with an actionable *"Report New Issue"* button when no matching records exist.</li>
+      <li><strong>Error State:</strong> Non-technical error banners with retry triggers.</li>
+    </ul>
+
+    <h3 class="sub-heading">4.2 Software Interfaces & REST API Endpoints</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Endpoint Path</th>
+          <th>Access Tier</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>POST</td><td>/api/auth/register</td><td>Public</td><td>Registers student or admin account</td></tr>
+        <tr><td>POST</td><td>/api/auth/login</td><td>Public</td><td>Authenticates credentials and returns JWT token</td></tr>
+        <tr><td>GET</td><td>/api/auth/me</td><td>Private</td><td>Fetches authenticated user profile</td></tr>
+        <tr><td>GET</td><td>/api/issues</td><td>Private</td><td>Queries all tickets with search and category filters</td></tr>
+        <tr><td>POST</td><td>/api/issues</td><td>Private</td><td>Creates new maintenance ticket</td></tr>
+        <tr><td>GET</td><td>/api/issues/my</td><td>Private</td><td>Retrieves tickets created by logged-in user</td></tr>
+        <tr><td>PUT</td><td>/api/issues/:id/status</td><td>Admin Only</td><td>Updates lifecycle status and resolution remarks</td></tr>
+        <tr><td>PUT</td><td>/api/issues/:id/upvote</td><td>Private</td><td>Toggles peer upvote on a ticket</td></tr>
+        <tr><td>DELETE</td><td>/api/issues/:id</td><td>Owner / Admin</td><td>Deletes specified ticket</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-heading">5. NON-FUNCTIONAL REQUIREMENTS</h2>
+
+    <h3 class="sub-heading">5.1 Security Requirements</h3>
+    <ul>
+      <li><strong>Password Hashing:</strong> Plaintext passwords are never logged or stored; passwords undergo salted hashing via <code>bcryptjs</code>.</li>
+      <li><strong>Secret Isolation:</strong> JWT secrets, database connection URIs, and port numbers are strictly loaded through server-side <code>.env</code> files excluded from source control.</li>
+      <li><strong>Role Enforcement:</strong> API endpoints verify user authorization claims in JWT payloads to block privilege escalation.</li>
+    </ul>
+
+    <h3 class="sub-heading">5.2 Performance & Reliability</h3>
+    <ul>
+      <li>Sub-second API response times through Mongoose indexed queries.</li>
+      <li>Vite-powered single-page application bundling delivering instant client navigation without full-page reloads.</li>
+      <li>Automatic reconnect logic configured on the MongoDB Atlas database cluster.</li>
+    </ul>
+  </div>
+
+</body>
+</html>
