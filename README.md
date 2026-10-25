@@ -1,6 +1,11 @@
 # CampusFix — Campus Maintenance & Grievance Portal
 
-> **Full Stack MERN Application** developed as part of the **ICT Academy of Kerala Summer Internship Program**.
+> **Full Stack MERN Application** developed by **Megha K H** (Sahrdaya College of Engineering and Technology) as part of the **ICT Academy of Kerala Summer Internship Program**.
+
+* 🌐 **Live Hosted Website (Vercel)**: [https://campus-fix-lake.vercel.app](https://campus-fix-lake.vercel.app)
+* ⚙️ **Live Backend API (Render)**: [https://campus-fix-n3qc.onrender.com](https://campus-fix-n3qc.onrender.com)
+* 📄 **Summer Internship Report**: [`docs/CampusFix_Summer_Internship_Report.md`](./docs/CampusFix_Summer_Internship_Report.md)
+* 📋 **Software Requirements Specification (SRS)**: [`docs/CampusFix_Software_Requirements_Specification_SRS.md`](./docs/CampusFix_Software_Requirements_Specification_SRS.md)
 
 ---
 

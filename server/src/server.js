@@ -14,7 +14,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    // Allow all origins (localhost, Vercel, Render) seamlessly
+    callback(null, true);
+  },
   credentials: true,
 }));
 app.use(express.json());
